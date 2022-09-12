@@ -1,2 +1,37 @@
 #
-dqdwfwf
+# Установка дисков Debian
+#
+apt-cdrom add && apt install -y tcpdump net-tools curl vim lynx isc-dhcp-common dnsutils nfs-common cifs-utils sshpass openssh-server bash-completion network-manager
+#
+# Установка дисков CentOS
+#
+mkdir repos
+mv /etc/yum.repos.d/CentOS-* ./repos/
+cp ./repos/CentOS-Media.repo /etc/yum.repos.d/
+nano /etc/yum.repos.d/CentOS-Media.repo
+mkdir /media/cdrom
+mkdir /media/CentOS
+mount /dev/sr0 /media/cdrom
+mount /dev/sr1 /media/CentOS
+yum -y install tcpdump net-tools curl vim lynx dhclient bind-utils nfs-utils cifs-utils
+yum -y install /media/*/sshpass*
+yum -y install nano bash-completion mc
+
+
+
+nano /etc/hosts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
