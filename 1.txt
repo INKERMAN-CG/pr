@@ -47,6 +47,8 @@ sed -i 's/^hosts:.*/hosts: dns files myhostname/' /ect/nsswitch.conf
 # NETWORK CONFIGURATION 05
 #
 
+# Задать хостнеймы
+#
 
 #
 # IP FORWARDING 06
