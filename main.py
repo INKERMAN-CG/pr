@@ -70,7 +70,49 @@ sed -i 's/^hosts:.*/hosts: dns files myhostname/' /etc/nsswitch.conf
 
 
 
-
+OSPF / FRR
+--- L-FW L-RTR-A L-RTR-B R-FW R-RTR ---
+# Установитьь Frr НА МАШИНАХ LLLLLLL
+apt install frr
+# Поменять строчку на ДА в файле
+vim /etc/frr/daemons
+     ospfd=yes
+# Перезапустить демона
+systemctl restart frr
+# Настроить конфишгурацию на машине, каждую строчку надо отдельно
+vtysh
+conf t
+router ospf
+                                      ### ---> Дальше строчки для разных машин <--- ###
+  
+  # Теперь тут прописать интерфейсы, смотрим по схеме что и куда надо
+  # Что бы убрать не нужный интерфес, надо написать еще раз, но перед ним добавить No ---> no passive-interface ens224
+  # ПРИМЕР ДЛЯ L-FW
+network 172.16.20.0/24 area 0
+network 172.16.50.0/30 area 0
+network 172.16.55.0/30 area 0
+network 10.5.5.0/30 area 0
+network 5.5.5.0/27 area 0
+passive-interface ens160
+passive-interface ens256
+  # ПРИМЕР ДЛЯ L-RTR-A
+network 172.16.50.0/30 area 0
+network 172.16.100.0/24 area 0
+passive-interface ens224
+  # ПРИМЕР ДЛЯ L-RTR-B
+network 172.16.55.0/30 area 0
+network 172.16.200.0/24 area 0
+passive-interface ens224
+  # Выходим и сохраняем прогресс
+do write
+exit
+  # Пишем Exit до того пока не увидем root@......
+  # Что бы проверить прогрес  мы пишем в L-FW (у каждой машны свое имя) (это то что следует после команды vtysh)
+show run
+  # Теперь мы должны увидеть то что мы вписали
+  
+  
+   # ПРИМЕР ДЛЯ 
 
 
 
