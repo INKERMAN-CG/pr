@@ -111,8 +111,71 @@ exit
 show run
   # Теперь мы должны увидеть то что мы вписали
   
-  
+ sysctl -w net.ipv4.ip_forward=1 
    # ПРИМЕР ДЛЯ 
+
+
+
+
+
+
+
+
+
+
+dhcp
+
+#l rtr a
+apt install isc-dhcp-server
+
+vim /etc/default/isc-dhcp-server
+#INTERFACESv4="ens192 ens224"
+#INTERFACESv6=""
+
+vim /etc/dhcp/dhcpd.conf
+
+###############################################################################
+option domain-name "skill39.wsr";
+option domain-name-servers 172.16.20.10;
+
+default-lease-time 600;
+max-lease-time 7200;
+
+ddns-update-style none;
+
+authoritative;
+
+subnet 172.16.50.0 netmask 255.255.255.252 {}
+
+subnet 172.16.100.0 netmask 255.255.255.0 {
+   range 172.16.100.65 172.16.100.75;
+   option routers 172.16.100.1;
+}
+
+subnet 172.16.200.0 netmask 255.255.255.0 {
+   range 172.16.200.65 172.16.200.75;
+   option routers 172.16.200.1;
+}
+
+host clib {
+  hardware ethernet 00:0c:29:a3:ad:bf;
+  fixed-address 172.16.200.61;
+}
+##################################################################################
+
+
+
+#получить ip на lcl b
+dhclient -r
+dhclient -v
+
+
+
+
+
+
+
+
 
 
 
