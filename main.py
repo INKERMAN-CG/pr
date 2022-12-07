@@ -158,7 +158,7 @@ subnet 172.16.200.0 netmask 255.255.255.0 {
 }
 
 host clib {
-  hardware ethernet 00:0c:29:a3:ad:bf;
+  hardware ethernet 00:0C:29:1D:2C:06;
   fixed-address 172.16.200.61;
 }
 ##################################################################################
